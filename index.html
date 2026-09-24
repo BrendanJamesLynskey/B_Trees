@@ -6,7 +6,7 @@
   <title>B-Trees</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/black.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,17 +14,17 @@
 
   <style>
   :root {
-    --amber:  #f5a623;
-    --green:  #4ecb8d;
-    --purple: #a78bfa;
-    --blue:   #60a5fa;
-    --red:    #f87171;
-    --bg:     #0a0a0f;
-    --bg2:    #10101a;
-    --bg3:    #181824;
-    --border: #2a2a3a;
-    --text:   #e8e8f0;
-    --muted:  #8888a8;
+    --amber:  #bf7d10;
+    --green:  #1c815a;
+    --purple: #6435bc;
+    --blue:   #2b3dc5;
+    --red:    #db3a30;
+    --bg:     #fafaf8;
+    --bg2:    #f1f1ee;
+    --bg3:    #eaeae6;
+    --border: #d1d1cb;
+    --text:   #161616;
+    --muted:  #6a6a63;
   }
 
   .reveal-viewport { background: var(--bg); }
@@ -40,7 +40,7 @@
   .reveal code { font-family: 'JetBrains Mono', monospace; font-size: .72em; }
   .reveal pre  { box-shadow: none; background: var(--bg3); border: 1px solid var(--border);
                  border-radius: 6px; padding: .3em .5em; margin: .25em 0; }
-  .reveal pre code { font-size: .52em; line-height: 1.35; background: transparent; color: #cdd6f4; }
+  .reveal pre code { font-size: .52em; line-height: 1.35; background: transparent; color: #242422; }
 
   /* ── slide chrome ── */
   .slide-hdr {
@@ -75,16 +75,16 @@
   .card.blue  { border-left: 3px solid var(--blue); }
   .card.red   { border-left: 3px solid var(--red); }
   .card h3 { font-size: .64em; margin: 0 0 .12em; }
-  .card p  { font-size: .52em; margin: 0; color: #b8b8d0; }
+  .card p  { font-size: .52em; margin: 0; color: #3d3d39; }
   .card ul { margin: 0; padding-left: 1em; }
-  .card li { font-size: .52em; color: #b8b8d0; margin-bottom: .02em; }
+  .card li { font-size: .52em; color: #3d3d39; margin-bottom: .02em; }
 
   /* ── table ── */
   .reveal table { width: 100%; border-collapse: collapse; font-size: .5em; }
   .reveal table th { background: var(--bg3); color: var(--amber); font-weight: 600;
                      padding: .2em .4em; border: 1px solid var(--border); text-align: left; }
-  .reveal table td { padding: .18em .4em; border: 1px solid var(--border); color: #ccc; }
-  .reveal table tr:nth-child(even) td { background: #0e0e18; }
+  .reveal table td { padding: .18em .4em; border: 1px solid var(--border); color: #2d2d2b; }
+  .reveal table tr:nth-child(even) td { background: #f3f3f1; }
 
   /* ── accent spans ── */
   .a  { color: var(--amber); font-weight: 600; }
@@ -127,8 +127,8 @@
     padding: .2em .55em; border-radius: 5px; font-size: .9em;
     background: var(--bg3); border: 1px solid var(--border); color: var(--text);
   }
-  .ss-node.active { background: #1a2a1a; border-color: var(--green); color: var(--green); }
-  .ss-node.done   { background: #1a1a2a; border-color: var(--purple); color: var(--purple); }
+  .ss-node.active { background: #d3e1d5; border-color: var(--green); color: var(--green); }
+  .ss-node.done   { background: #e6e6e2; border-color: var(--purple); color: var(--purple); }
   .ss-arrow { color: var(--amber); }
   .ss-label { font-size: .8em; color: var(--muted); margin-left: .3em; }
 
@@ -136,6 +136,7 @@
   .reveal ul, .reveal ol { margin: .15em 0 .15em 1em; }
 .reveal .slides > section { display: flex !important; flex-direction: column !important; overflow-y: auto !important; align-items: stretch !important; justify-content: flex-start !important; }
 </style>
+<style>.reveal .slide-number{background-color:transparent}</style>
 </head>
 <body>
 <div class="reveal">
@@ -144,7 +145,7 @@
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 01 — Title
 ══════════════════════════════════════════════════════════════════ -->
-<section class="title-slide" data-background-color="#0a0a0f">
+<section class="title-slide" data-background-color="#fafaf8">
   <div style="font-family:'JetBrains Mono',monospace; font-size:.5em; color:var(--muted); margin-bottom:.4em; letter-spacing:.1em;">COMPUTER SCIENCE FUNDAMENTALS SERIES</div>
   <h1>B-Trees</h1>
   <div class="subtitle">
@@ -160,7 +161,7 @@
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 02 — Motivation
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">02</span>
     <h2>Motivation — Disk-Based Storage</h2>
@@ -195,7 +196,7 @@
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 03 — B-Tree Definition
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">03</span>
     <h2>B-Tree Definition</h2>
@@ -230,7 +231,7 @@
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 04 — Node Structure
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">04</span>
     <h2>B-Tree Node Structure</h2>
@@ -274,7 +275,7 @@ Pi = pointer to child i (disk page address)</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 05 — Search
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">05</span>
     <h2>B-Tree Search</h2>
@@ -308,28 +309,28 @@ Pi = pointer to child i (disk page address)</code></pre>
       <div style="background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:.5em;">
         <svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
           <!-- Root node -->
-          <rect x="140" y="10" width="120" height="30" rx="5" fill="#1a1a28" stroke="#f5a623" stroke-width="1.5"/>
-          <text x="175" y="30" font-family="'JetBrains Mono',monospace" font-size="12" fill="#f5a623">30</text>
-          <text x="235" y="30" font-family="'JetBrains Mono',monospace" font-size="12" fill="#f5a623">60</text>
-          <text x="290" y="25" font-family="'DM Sans',sans-serif" font-size="9" fill="#8888a8">← read 1</text>
+          <rect x="140" y="10" width="120" height="30" rx="5" fill="#e7e7e2" stroke="#bf7d10" stroke-width="1.5"/>
+          <text x="175" y="30" font-family="'JetBrains Mono',monospace" font-size="12" fill="#bf7d10">30</text>
+          <text x="235" y="30" font-family="'JetBrains Mono',monospace" font-size="12" fill="#bf7d10">60</text>
+          <text x="290" y="25" font-family="'DM Sans',sans-serif" font-size="9" fill="#6a6a63">← read 1</text>
           <!-- Lines to children -->
-          <line x1="165" y1="40" x2="70" y2="80" stroke="#2a2a3a" stroke-width="1"/>
-          <line x1="200" y1="40" x2="200" y2="80" stroke="#4ecb8d" stroke-width="1.5"/>
-          <line x1="235" y1="40" x2="330" y2="80" stroke="#2a2a3a" stroke-width="1"/>
+          <line x1="165" y1="40" x2="70" y2="80" stroke="#d1d1cb" stroke-width="1"/>
+          <line x1="200" y1="40" x2="200" y2="80" stroke="#1c815a" stroke-width="1.5"/>
+          <line x1="235" y1="40" x2="330" y2="80" stroke="#d1d1cb" stroke-width="1"/>
           <!-- Left child -->
-          <rect x="10" y="80" width="120" height="30" rx="5" fill="#1a1a28" stroke="#2a2a3a"/>
-          <text x="35" y="100" font-family="'JetBrains Mono',monospace" font-size="11" fill="#e8e8f0">10  20</text>
+          <rect x="10" y="80" width="120" height="30" rx="5" fill="#e7e7e2" stroke="#d1d1cb"/>
+          <text x="35" y="100" font-family="'JetBrains Mono',monospace" font-size="11" fill="#161616">10  20</text>
           <!-- Middle child (highlighted) -->
-          <rect x="140" y="80" width="120" height="30" rx="5" fill="#1a2a1a" stroke="#4ecb8d" stroke-width="1.5"/>
-          <text x="155" y="100" font-family="'JetBrains Mono',monospace" font-size="11" fill="#4ecb8d">35  42  55</text>
-          <text x="290" y="100" font-family="'DM Sans',sans-serif" font-size="9" fill="#8888a8">← read 2</text>
+          <rect x="140" y="80" width="120" height="30" rx="5" fill="#d3e1d5" stroke="#1c815a" stroke-width="1.5"/>
+          <text x="155" y="100" font-family="'JetBrains Mono',monospace" font-size="11" fill="#1c815a">35  42  55</text>
+          <text x="290" y="100" font-family="'DM Sans',sans-serif" font-size="9" fill="#6a6a63">← read 2</text>
           <!-- Right child -->
-          <rect x="280" y="80" width="120" height="30" rx="5" fill="#1a1a28" stroke="#2a2a3a"/>
-          <text x="300" y="100" font-family="'JetBrains Mono',monospace" font-size="11" fill="#e8e8f0">70  80  90</text>
+          <rect x="280" y="80" width="120" height="30" rx="5" fill="#e7e7e2" stroke="#d1d1cb"/>
+          <text x="300" y="100" font-family="'JetBrains Mono',monospace" font-size="11" fill="#161616">70  80  90</text>
           <!-- Annotation -->
-          <text x="155" y="135" font-family="'DM Sans',sans-serif" font-size="10" fill="#4ecb8d">42 found! Total: 2 disk reads</text>
+          <text x="155" y="135" font-family="'DM Sans',sans-serif" font-size="10" fill="#1c815a">42 found! Total: 2 disk reads</text>
           <!-- Search path annotation -->
-          <text x="10" y="165" font-family="'DM Sans',sans-serif" font-size="9" fill="#8888a8">Root → 42 &gt; 30 and 42 &lt; 60 → follow middle pointer → find 42 at position 1</text>
+          <text x="10" y="165" font-family="'DM Sans',sans-serif" font-size="9" fill="#6a6a63">Root → 42 &gt; 30 and 42 &lt; 60 → follow middle pointer → find 42 at position 1</text>
         </svg>
       </div>
     </div>
@@ -339,7 +340,7 @@ Pi = pointer to child i (disk page address)</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 06 — Insertion
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">06</span>
     <h2>B-Tree Insertion</h2>
@@ -389,7 +390,7 @@ Step 2: Insert 25
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 07 — Node Splitting
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">07</span>
     <h2>Node Splitting in Detail</h2>
@@ -438,7 +439,7 @@ Step 2: Insert 25
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 08 — Deletion
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">08</span>
     <h2>B-Tree Deletion</h2>
@@ -472,7 +473,7 @@ Step 2: Insert 25
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 09 — Merging & Borrowing
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">09</span>
     <h2>Deletion — Merging &amp; Borrowing</h2>
@@ -517,7 +518,7 @@ After merge:
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 10 — B+ Trees
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">10</span>
     <h2>B+ Trees</h2>
@@ -537,31 +538,31 @@ After merge:
   <div style="background:var(--bg2); border:1px solid var(--border); border-radius:6px; padding:.5em; margin-top:0.4em;">
     <svg viewBox="0 0 500 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
       <!-- Root -->
-      <rect x="190" y="5" width="120" height="26" rx="5" fill="#1a1a28" stroke="#f5a623"/>
-      <text x="230" y="22" font-family="'JetBrains Mono',monospace" font-size="11" fill="#f5a623">30  60</text>
-      <text x="330" y="20" font-family="'DM Sans',sans-serif" font-size="9" fill="#8888a8">index only</text>
+      <rect x="190" y="5" width="120" height="26" rx="5" fill="#e7e7e2" stroke="#bf7d10"/>
+      <text x="230" y="22" font-family="'JetBrains Mono',monospace" font-size="11" fill="#bf7d10">30  60</text>
+      <text x="330" y="20" font-family="'DM Sans',sans-serif" font-size="9" fill="#6a6a63">index only</text>
       <!-- Lines -->
-      <line x1="215" y1="31" x2="90" y2="60" stroke="#2a2a3a"/>
-      <line x1="250" y1="31" x2="250" y2="60" stroke="#2a2a3a"/>
-      <line x1="285" y1="31" x2="410" y2="60" stroke="#2a2a3a"/>
+      <line x1="215" y1="31" x2="90" y2="60" stroke="#d1d1cb"/>
+      <line x1="250" y1="31" x2="250" y2="60" stroke="#d1d1cb"/>
+      <line x1="285" y1="31" x2="410" y2="60" stroke="#d1d1cb"/>
       <!-- Leaf 1 -->
-      <rect x="20" y="60" width="140" height="30" rx="5" fill="#1a2a1a" stroke="#4ecb8d"/>
-      <text x="35" y="79" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4ecb8d">10  20  data</text>
+      <rect x="20" y="60" width="140" height="30" rx="5" fill="#d3e1d5" stroke="#1c815a"/>
+      <text x="35" y="79" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1c815a">10  20  data</text>
       <!-- Leaf 2 -->
-      <rect x="180" y="60" width="140" height="30" rx="5" fill="#1a2a1a" stroke="#4ecb8d"/>
-      <text x="190" y="79" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4ecb8d">30  35  42  data</text>
+      <rect x="180" y="60" width="140" height="30" rx="5" fill="#d3e1d5" stroke="#1c815a"/>
+      <text x="190" y="79" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1c815a">30  35  42  data</text>
       <!-- Leaf 3 -->
-      <rect x="340" y="60" width="140" height="30" rx="5" fill="#1a2a1a" stroke="#4ecb8d"/>
-      <text x="350" y="79" font-family="'JetBrains Mono',monospace" font-size="10" fill="#4ecb8d">60  70  80  data</text>
+      <rect x="340" y="60" width="140" height="30" rx="5" fill="#d3e1d5" stroke="#1c815a"/>
+      <text x="350" y="79" font-family="'JetBrains Mono',monospace" font-size="10" fill="#1c815a">60  70  80  data</text>
       <!-- Leaf links -->
-      <line x1="160" y1="75" x2="180" y2="75" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arrP)"/>
-      <line x1="320" y1="75" x2="340" y2="75" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arrP)"/>
+      <line x1="160" y1="75" x2="180" y2="75" stroke="#6435bc" stroke-width="1.5" marker-end="url(#arrP)"/>
+      <line x1="320" y1="75" x2="340" y2="75" stroke="#6435bc" stroke-width="1.5" marker-end="url(#arrP)"/>
       <defs>
         <marker id="arrP" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-          <path d="M0,0 L0,6 L8,3 z" fill="#a78bfa"/>
+          <path d="M0,0 L0,6 L8,3 z" fill="#6435bc"/>
         </marker>
       </defs>
-      <text x="170" y="115" font-family="'DM Sans',sans-serif" font-size="10" fill="#a78bfa">← → leaf-level linked list for sequential scan</text>
+      <text x="170" y="115" font-family="'DM Sans',sans-serif" font-size="10" fill="#6435bc">← → leaf-level linked list for sequential scan</text>
     </svg>
   </div>
 </section>
@@ -569,7 +570,7 @@ After merge:
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 11 — Range Queries
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">11</span>
     <h2>B+ Tree Range Queries</h2>
@@ -620,7 +621,7 @@ ORDER BY order_date;</code></pre>
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 12 — B* Trees
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">12</span>
     <h2>B* Trees</h2>
@@ -666,7 +667,7 @@ After:   [A B C] [D E] [F G H]
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 13 — Height Analysis
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">13</span>
     <h2>B-Tree Height Analysis</h2>
@@ -702,7 +703,7 @@ After:   [A B C] [D E] [F G H]
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 14 — Disk I/O Model
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">14</span>
     <h2>Disk I/O Model &amp; Why Fanout Matters</h2>
@@ -746,7 +747,7 @@ h = ceil(log_1024(10^9))
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 15 — B-Trees in Databases
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">15</span>
     <h2>B-Trees in Databases</h2>
@@ -794,7 +795,7 @@ h = ceil(log_1024(10^9))
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 16 — B-Trees in File Systems
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">16</span>
     <h2>B-Trees in File Systems</h2>
@@ -847,7 +848,7 @@ h = ceil(log_1024(10^9))
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 17 — LSM-Trees vs B-Trees
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">17</span>
     <h2>LSM-Trees vs B-Trees</h2>
@@ -888,7 +889,7 @@ h = ceil(log_1024(10^9))
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 18 — Fractal Trees
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">18</span>
     <h2>Fractal Trees &amp; Write-Optimised Structures</h2>
@@ -937,7 +938,7 @@ h = ceil(log_1024(10^9))
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 19 — Practical Considerations
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">19</span>
     <h2>Practical Considerations</h2>
@@ -983,7 +984,7 @@ h = ceil(log_1024(10^9))
 <!-- ═══════════════════════════════════════════════════════════════
   SLIDE 20 — Summary
 ══════════════════════════════════════════════════════════════════ -->
-<section data-background-color="#0a0a0f">
+<section data-background-color="#fafaf8">
   <div class="slide-hdr">
     <span class="tag">20</span>
     <h2>Summary &amp; Further Reading</h2>
